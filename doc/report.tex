@@ -1,0 +1,125 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is the start of a paper by Stephen J Maher %
+%            Starting January 2012                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[11pt,a4paper] {article}
+
+\oddsidemargin -0.0 in
+\evensidemargin 0.0in
+\textwidth 6.25in
+\headheight 0.0in
+\topmargin 0.0in
+\textheight 9.0in
+\evensidemargin 0mm
+\pagestyle{headings}
+\usepackage{authblk}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{delarray}
+\usepackage{amsfonts}
+\usepackage{cite}
+%\usepackage{undertilde}  Remember to uncomment later
+\usepackage{bm}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+\usepackage{pst-eps}
+\usepackage{pst-grad}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{eurosym}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{rotating}
+% \usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage[normalem]{ulem}
+
+\allowdisplaybreaks[1]
+
+\linespread{1.5}
+
+%Adjusting float parameters
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\floatpagefraction}{0.5}
+
+
+\newcommand{\todo}[1]{\par\vspace{2mm} \noindent
+\marginpar{to do}
+\framebox{\begin{minipage}[c]{0.85\textwidth}
+\tt #1 \end{minipage}}\vspace{2mm}\par}
+\newcommand{\alignName}[2]{\parbox{\textwidth}{\parbox[l]{0.0001\textwidth}{\noindent(#1)}\parbox[l]{0.967\textwidth}{ #2 }}}
+
+\newcommand{\tocheck}{\marginpar{\emph{check}}}
+\newcommand{\reviewed}{\marginpar{reviewed}}
+\newcommand{\etal}[1]{\emph{et al.}\cite{#1}}
+\newcommand{\etalm}[1]{\emph{et al.}\mbox{\cite{#1}}}
+\newcommand{\citem}[1]{\mbox{\cite{#1}}}
+\newcommand{\pbspsS}{PBSP-$s$ }
+\newcommand{\pbsps}{PBSP-$s$}
+
+\newcommand{\env}{Env}
+
+
+\newtheorem{mydef}{Definition}[subsection]
+\newtheorem{mythm}{Theorem}[subsection]
+\newtheorem{mylem}{Lemma}[subsection]
+\newtheorem*{myprf}{Proof}
+
+\graphicspath{{./Pictures/}}
+
+%______________________________________________________________________%
+
+\date{}
+
+
+\begin{document}
+
+\iffalse
+
+What does the teacher scheduling involve?
+Input
+
+Sets
+- Teachers
+- Duties
+
+
+For each teacher
+- Days of work
+- Allowable duties
+- Number of duties per day
+- Piecewise linear cost of number of duties per day
+
+For each duty
+- Number of teachers required
+- Days the duty is required (possibly every day)
+
+\fi
+
+Let $T$ denote the set of teachers, $D$ the set of duties and $W$ the set of days. The parameters $a_{it}$ are defined to indicate that teacher $t$ works on day $i$. The number of duties that teacher $t$ can perform on day $i$ is denoted by $N_{it}$. Teacher $t$ may not be able to perform all duties of a given day. As such, the parameters $b_{idt}$ are defined to equal 1 is teacher $t$ can perform duty $d$ on day $i$. The variables $x_{idt}$ are defined to equal 1 if teacher $t$ performs duty $d$ on day $i$. Finally, a duty may not be required for each day in $W$. If duty $d$ must be performed on day $i$, then the parameter $p_{id}$ equals the number of staff that are required to perform duty $d$ on day $i$.
+
+We define the mathematical model of teacher duty scheduling as
+
+\begin{aligned}
+  \min \quad&
+  \text{s.t.} \quad&
+  % Duty coverage, days of work, skills required
+  &\sum_{t \in T}a_{it}b_{idt}x_{idt} = p_{id} \quad \foral d \in D, \forall i \in W, \\
+  %%% Alternatively
+  %&\sum_{t \in T}x_{idt} = p_{id} \quad \forall d \in D, \forall i \in W, \\
+  %$\sum_{t \in T}\sum_{d \in D}x_{idt} \leq a_{it} \quad \forall i \in W, \\ 
+  %$\sum_{t \in T}x_{idt} \leq b_{idt} \quad \forall d \in D, \forall i \in W, \\
+  % Maximum number of duties per day
+  &\sum_{d \in D}x_{idt} \leq N_{it} \quad \forall t \in T, \forall i \in W, \\
+  &x_{idt} \in \{0, 1\}
+\end{aligned}
+
+
+\end{document}
