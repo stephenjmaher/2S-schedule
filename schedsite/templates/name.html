@@ -1,0 +1,40 @@
+<!--<form action="/your-name/" method="post">-->
+<form method="post">
+    {% csrf_token %}
+    <!--{{ form.as_p }}-->
+
+    {% with counter=0 %}
+    {% for field in form %}
+        {% if forloop.counter0 == 0 %}
+            {% for pk, choice in field.field.widget.choices %}
+                {{ choice }}
+            {% endfor %}
+        {% endif %}
+
+        {% if 'day_select' in field.name %}
+            <div class="fieldWrapper">
+                {{ field.label_tag }}
+                {% for pk, choice in field.field.widget.choices %}
+                        <label for="id_{{field.name}}_{{ forloop.counter0 }}">
+                        <input id="id_{{field.name}}_{{ forloop.counter0 }}" name="{{field.name}}" type="checkbox" value="{{pk}}" />
+                {% endfor %}
+            </div>
+        {% endif %}
+        {{ iterator.next }}
+        {% if 'duty_select' in field.name %}
+            {% if counter|divisibleby:form.num_duties.initial %}
+                <div class="fieldWrapper">
+                    {{ field.label_tag }}
+            {% endif %}
+                {{ field }}
+                <!--<label for="id_{{field.name}}">-->
+                <!--<input id="id_{{field.name}}" type="text" name="{{field.name}}" value="{{ current_name }}">-->
+            {% if forloop.counter0|divisibleby:form.num_duties.initial %}
+                </div>
+            {% endif %}
+            {{ counter|add:"1" }}
+        {% endif %}
+    {% endfor %}
+    {% endwith %}
+    <input type="submit" value="Submit" />
+</form>
